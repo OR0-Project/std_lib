@@ -38,10 +38,12 @@ if __name__ == "__main__":
 	
 	commands = [
 		# math.h
+		["nasm", "-f", "elf64", "-o", cd(int_folder, "arithmetic.o"), cd(src_folder, "arithmetic.asm")],
 		["nasm", "-f", "elf64", "-o", cd(int_folder, "trig.o"), cd(src_folder, "trig.asm")],
 		["nasm", "-f", "elf64", "-o", cd(int_folder, "exp.o"), cd(src_folder, "exp.asm")],
 		[   # linking to math.h equivalent object
 			"ld", "--relocatable", "-o", cd(static_folder, "math.o"),
+			cd(int_folder, "arithmetic.o"),
 			cd(int_folder, "trig.o"),
 			cd(int_folder, "exp.o")
 		],

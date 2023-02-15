@@ -26,6 +26,7 @@
 *[x] f64 cot(f64 x)
 * f32 and f64 versions of these functions are being implemented.
 * f80 versions are not possible with x87 instructions as far is i know so an other method should be used for that later
+* add newtons method to the log functions to improve precision
 
 ### Other Features
 *[ ] add custom types and operations to gcc toolchain https://hsandid.github.io/posts/risc-v-custom-instruction/
