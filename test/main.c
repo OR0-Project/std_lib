@@ -47,23 +47,24 @@ void basic_exp(void) {
 		printf("log2(%f)\t\t\t=> %.20f\n", x, log2(x));
 		printf("log10(%f)\t\t\t=> %.20f\n", x, log10(x));
 		printf("exp(%f)\t\t\t=> %.20f\n", x, exp(x));
-		printf("pow(%f, %f)\t=> %.20f\n", x, pow(x, x));
+		printf("pow(%f, %f)\t=> %.20f\n", x, x, pow(x, x));
 		if (i == 0xff) { break; }  // check at the end to include 0xff
 	}
 }
 void complex_trig(void) {
 	f64 x;
 	for (uint8_t i = 0;; i++) {		// loop that roughly divides pi into 255 pieces
-		x = (f64)i / 0xff;
+		x = (f64)i / 0xff; printf("%d:\n", i);
 		printf("atan(%f)\t=> %.20f\n", x, atan_test(x));
 		printf("atan(%f)\t=> %.20f\n", -x, atan_test(-x));
 		if (i == 0xff) { break; }  // check at the end to include 0xff
 	}
 }
 
+
 int main(int argc, char** argv) {
 	//basic_trig();
-	basic_exp();
-	//complex_trig();
+	//basic_exp();
+	complex_trig();
 	return 0;
 }

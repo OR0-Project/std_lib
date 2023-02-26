@@ -123,9 +123,9 @@ cot32:                                  ; single precision tan(x)
 
 atan:
 ; (-1)^n * (x^2n + 1) / 2n + 1
-
+	ret
 atan32:
-
+	ret
 
 
 

@@ -6,6 +6,7 @@ section .text
 	global log2
 	global log10
 	global exp
+	global pow
 
 
 sqrt:
@@ -22,22 +23,22 @@ ln:
 	mov [rsp + 8], rax                      ; move log(2) / log(e) onto the stack
 	fld qword [rsp + 8]                     ; load double precision float for 1.0 from the stack to the FPU register
 	fld qword [rsp]                         ; load double precision float for x from the stack to the FPU register
-	fyl2x                                   ; call the log2 function from the x87 FPU
+	fyl2x                                   ; call the log-ab function from the x87 FPU
 	fstp qword [rsp]                        ; load double precision float back to the stack from the FPU register
-	movsd xmm0, [rsp]                       ; move sin(x) to xmm0
+	movsd xmm0, [rsp]                       ; move ln(x) to xmm0
 	add rsp, 16                             ; clean up the stack
 	ret
 
-log2:
+log2:;fld1!!!!!!!!!!!!!!!!!!
 	sub rsp, 16                             ; free up some space on the stack
 	movsd [rsp], xmm0                       ; store x on the stack
 	mov rax, 0x3ff0000000000000             ; move 1.0 into rax
 	mov [rsp + 8], rax                      ; move 1.0 onto the stack
 	fld qword [rsp + 8]                     ; load double precision float for 1.0 from the stack to the FPU register
 	fld qword [rsp]                         ; load double precision float for x from the stack to the FPU register
-	fyl2x                                   ; call the log2 function from the x87 FPU
+	fyl2x                                   ; call the log-ab function from the x87 FPU
 	fstp qword [rsp]                        ; load double precision float back to the stack from the FPU register
-	movsd xmm0, [rsp]                       ; move sin(x) to xmm0
+	movsd xmm0, [rsp]                       ; move log2(x) to xmm0
 	add rsp, 16                             ; clean up the stack
 	ret
 
@@ -48,14 +49,36 @@ log10:
 	mov [rsp + 8], rax                      ; move log(2) / log(10) onto the stack
 	fld qword [rsp + 8]                     ; load double precision float for 1.0 from the stack to the FPU register
 	fld qword [rsp]                         ; load double precision float for x from the stack to the FPU register
-	fyl2x                                   ; call the log2 function from the x87 FPU
+	fyl2x                                   ; call the log-ab function from the x87 FPU
 	fstp qword [rsp]                        ; load double precision float back to the stack from the FPU register
-	movsd xmm0, [rsp]                       ; move sin(x) to xmm0
+	movsd xmm0, [rsp]                       ; move log10(x) to xmm0
 	add rsp, 16                             ; clean up the stack
 	ret
 
 exp:
+	sub rsp, 8                              ; free up some space on the stack
+    movsd [rsp], xmm0                       ; store x on the stack
+    fld qword [rsp]                         ; load the current approximation to the FPU register
+    fldl2e                                  ; load log2(e) into the FPU register
+    fmulp                                   ; multiply x by log2(e)
+    f2xm1                                   ; calculate 2 ^ (x * log2(e)) - 1
+    fld1                                    ; load 1.0 into the FPU register
+    faddp                                   ; add 1.0 to the result of the previous operation
+    fstp qword [rsp]                        ; store the result back on the stack
+    movsd xmm0, [rsp]                       ; load e^x into xmm0
+    add rsp, 8                              ; clean up space on the stack
 	ret
 
 pow:
+	sub rsp, 8                              ; free up some space on the stack
+	call log2                               ; calculate log2(x)
+    mulsd xmm0, xmm1                        ; calculate y * log2(x)
+    movsd [rsp], xmm0                       ; store y * log2(x) on the stack
+    fld qword [rsp]                         ; load the current approximation to the FPU register
+    f2xm1                                   ; calculate 2 ^ (y * log2(x)) - 1
+    fld1                                    ; load 1.0 into the FPU register
+    faddp                                   ; add 1.0 to the result of the previous operation
+    fstp qword [rsp]                        ; store the result back on the stack
+    movsd xmm0, [rsp]                       ; load x^y into xmm0
+    add rsp, 8                              ; clean up space on the stack
 	ret
