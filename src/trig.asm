@@ -122,10 +122,96 @@ cot32:                                  ; single precision tan(x)
 	ret
 
 atan:
+	; Save registers
+	push rbp
+	mov rbp, rsp
+	sub rsp, 16
+
+	; Check if input is negative
+	movq xmm1, xmm0
+	psrlq xmm1, 63
+	andpd xmm1, xmm0
+
+	; Calculate absolute value of input
+	movapd xmm2, xmm0
+	andpd xmm2, xmm1
+	xorpd xmm0, xmm2
+
+	; Check if input is greater than 1
+	movapd xmm2, xmm0
+	movapd xmm3, xmm0
+	subpd xmm3, xmm1
+	movapd xmm4, xmm3
+	cmppd xmm3, xmm1, 1
+	jp .subtract_pi_2
+	jnp .done
+
+.loop:
+	; Calculate denominator and numerator
+	movapd xmm5, xmm0
+	movapd xmm6, xmm0
+	mulsd xmm5, xmm5
+	mov rax, 0x3ff0000000000000
+	movq xmm7, rax
+	addsd xmm7, xmm5
+	sqrtsd xmm7, xmm7
+	addsd xmm6, xmm7
+
+	; Check if numerator is small enough
+	movapd xmm7, xmm6
+	subpd xmm7, xmm4
+	cmppd xmm7, xmm3, 2
+	jnp .done
+
+	; Calculate the next term in the series
+	divsd xmm6, xmm7
+	addsd xmm2, xmm6
+	addsd xmm4, xmm7
+
+	; Check if we need to loop again
+	mov rax, 0x3FE0000000000000
+	movq xmm7, rax
+	comisd xmm6, xmm7
+	jne .loop
+
+.done:
+	; Check if input was negative
+	movapd xmm6, xmm0
+	andpd xmm6, xmm1
+	xorpd xmm2, xmm6
+	; Check if input was greater than 1
+	movapd xmm6, xmm3
+	andpd xmm6, xmm1
+	xorpd xmm2, xmm6
+	; Multiply by pi/4
+	mov rax, 0x3fe921fb54442d18
+	movq xmm3, rax
+	mulsd xmm2, xmm3
+	movsd xmm0, xmm2
+	; Restore registers and return
+	mov rsp, rbp
+	pop rbp
+	ret
+
+.subtract_pi_2:
+	; Calculate arctan(1/x)
+	divsd xmm0, xmm2
+	mov rax, 0x3ff921fb54442d18
+	movq xmm3, rax
+	call atan
+	; Return pi/2 - arctan(1/x)
+	mov rax, 0x3ff921fb54442d18
+	movq xmm2, rax
+	subsd xmm2, xmm0
+	movapd xmm0, xmm2
+	; Restore registers and return
+	mov rsp, rbp
+	pop rbp
+	ret
+
 ; (-1)^n * (x^2n + 1) / 2n + 1
 	ret
-atan32:
-	ret
+
 
 
 

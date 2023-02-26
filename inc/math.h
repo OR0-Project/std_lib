@@ -26,7 +26,7 @@ extern f64 cot(f64 x);
 extern f32 cot32(f32 x);
 
 extern f64 atan(f64 x);
-extern f32 atan32(f32 x);
+
 
 // exp.asm
 extern f64 sqrt(f64 x);

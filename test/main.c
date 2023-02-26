@@ -6,16 +6,16 @@
 #include "../inc/math.h"
 
 
-f64 atan_test(f64 x) {
-	double result = 0.0;
-	double term = x;
-	int i;
-	for (i = 3; fabs(term) > 1e-15; i += 2) {
-		result += term / i;
-		term = -term * x * x;
-	}
-	return result;
-}
+//f64 atan_test(f64 x) {
+//	double result = 0.0;
+//	double term = x;
+//	int i;
+//	for (i = 3; fabs(term) > 1e-15; i += 2) {
+//		result += term / i;
+//		term = -term * x * x;
+//	}
+//	return result;
+//}
 
 
 void basic_trig(void) {
@@ -55,8 +55,8 @@ void complex_trig(void) {
 	f64 x;
 	for (uint8_t i = 0;; i++) {		// loop that roughly divides pi into 255 pieces
 		x = (f64)i / 0xff; printf("%d:\n", i);
-		printf("atan(%f)\t=> %.20f\n", x, atan_test(x));
-		printf("atan(%f)\t=> %.20f\n", -x, atan_test(-x));
+		printf("atan(%f)\t=> %.20f\n", x, atan(x));
+		printf("atan(%f)\t=> %.20f\n", -x, atan(-x));
 		if (i == 0xff) { break; }  // check at the end to include 0xff
 	}
 }
