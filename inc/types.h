@@ -3,6 +3,8 @@
 //
 
 #ifndef STD_LIB_TYPES_H
+#define STD_LIB_TYPES_H
+
 
 #define int8_t char
 #define int16_t short
@@ -20,6 +22,5 @@
 #define f64 double
 #define f80 long double
 
-#define STD_LIB_TYPES_H
 
 #endif //STD_LIB_TYPES_H

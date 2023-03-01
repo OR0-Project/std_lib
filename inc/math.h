@@ -5,6 +5,7 @@
 #ifndef STD_LIB_MATH_H
 #define STD_LIB_MATH_H
 
+
 #include "types.h"
 
 // arithmetic.asm
@@ -25,15 +26,15 @@ extern f32 sec32(f32 x);
 extern f64 cot(f64 x);
 extern f32 cot32(f32 x);
 
-
 // exp.asm
 extern f64 sqrt(f64 x);
 extern f32 sqrt32(f32 x);
-// log and exp functions are only for f64 because the x87 instruction set only supports this
+// log and exp functions are only for f64 because the x87 instruction set does not have any 32 bit versions
 extern f64 ln(f64 x);
 extern f64 log2(f64 x);
 extern f64 log10(f64 x);
 extern f64 exp(f64 x);
 extern f64 pow(f64 x, f64 y);
+
 
 #endif //STD_LIB_MATH_H
