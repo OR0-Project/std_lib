@@ -29,17 +29,15 @@ ln:
 	add rsp, 16                             ; clean up the stack
 	ret
 
-log2:;fld1!!!!!!!!!!!!!!!!!!
-	sub rsp, 16                             ; free up some space on the stack
+log2:
+	sub rsp, 8                              ; free up some space on the stack
 	movsd [rsp], xmm0                       ; store x on the stack
-	mov rax, 0x3ff0000000000000             ; move 1.0 into rax
-	mov [rsp + 8], rax                      ; move 1.0 onto the stack
-	fld qword [rsp + 8]                     ; load double precision float for 1.0 from the stack to the FPU register
+	fld1                                    ; load double precision float for 1.0 from the stack to the FPU register
 	fld qword [rsp]                         ; load double precision float for x from the stack to the FPU register
 	fyl2x                                   ; call the log-ab function from the x87 FPU
 	fstp qword [rsp]                        ; load double precision float back to the stack from the FPU register
 	movsd xmm0, [rsp]                       ; move log2(x) to xmm0
-	add rsp, 16                             ; clean up the stack
+	add rsp, 8                              ; clean up the stack
 	ret
 
 log10:
