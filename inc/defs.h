@@ -22,6 +22,8 @@
 #define f64_t double
 #define f80_t long double
 
+#define str char*
+
 #define nullptr (void*)0
 
 

@@ -12,29 +12,33 @@
 // https://wiki.osdev.org/CPUID
 // https://en.wikipedia.org/wiki/CPUID
 // https://c9x.me/x86/html/file_module_x86_id_45.html
-#define VENDOR_ID									0x00000000
-#define CPU_INFO									0x00000001
-#define TLB_INFO									0x00000002	// TODO
-#define SERIAL_NUMBER								0x00000003
-#define DETERMINISTIC_CACHE_INFO					0x00000004	// TODO
-#define MWAIT_MONITOR_INFO							0x00000005	// TODO
-#define THERMAL_INFO								0x00000006	// TODO
-#define EXTENDED_FEATURE_INFO						0x00000007	// TODO
+enum CPUID_LEAFS {
+	VENDOR_ID =										0x00000000,
+	CPU_INFO =										0x00000001,
+	TLB_INFO =										0x00000002,	// TODO
+	SERIAL_NUMBER =									0x00000003,
+	DETERMINISTIC_CACHE_INFO =						0x00000004,	// TODO
+	MWAIT_MONITOR_INFO =							0x00000005,	// TODO
+	THERMAL_INFO =									0x00000006,	// TODO
+	EXTENDED_FEATURE_INFO_0 =						0x00000007,	// TODO
+	// TODO: find purpose of results between 0x7 and 0x16
+	END_STANDARD_RANGE =							0x00000016,	// the result of this is repeated when increasing eax
 
-#define EXTENDED_LEAF_INFO							0x80000000	// TODO
-#define EXTENDED_FEATURE_INFO						0x80000001	// TODO
-#define BRAND_STRING0								0x80000002
-#define BRAND_STRING1								0x80000003
-#define BRAND_STRING2								0x80000004
-#define L1_CACHE_INFO								0x80000005	// TODO
-#define L2_CACHE_INFO								0x80000006	// TODO
-#define POWER_MANAGEMENT_INFO						0x80000007	// TODO
-#define ADDRESS_SIZES								0x80000008	// TODO
-#define ENCRYPTED_MEMORY_INFO						0x8000001F	// TODO
-#define EXTENDED_FEATURE3_INFO						0x80000021	// TODO
+	EXTENDED_LEAF_INFO =							0x80000000,	// TODO
+	EXTENDED_FEATURE_INFO_1 =						0x80000001,	// TODO
+	BRAND_STRING0 =									0x80000002,
+	BRAND_STRING1 =									0x80000003,
+	BRAND_STRING2 =									0x80000004,
+	L1_CACHE_INFO =									0x80000005,	// TODO
+	L2_CACHE_INFO =									0x80000006,	// TODO
+	POWER_MANAGEMENT_INFO =							0x80000007,	// TODO
+	ADDRESS_SIZES =									0x80000008,	// TODO
+	// TODO: find purpose of results between 0x8 and 0x1F
+	ENCRYPTED_MEMORY_INFO =							0x8000001F,	// TODO
+	EXTENDED_FEATURE_INFO_2 =						0x80000021,	// TODO
 
-#define AMD_EASTER_EGG								0x8FFFFFFF	// TODO
-
+	AMD_EASTER_EGG =								0x8FFFFFFF,	// TODO
+};
 
 extern void cpu_id(uint64_t leaf, uint32_t* eax, uint32_t* ebx, uint32_t* ecx, uint32_t* edx);
 
