@@ -40,10 +40,22 @@ void basic_exp(void) {
 		if (i == 0xff) { break; }  // check at the end to include 0xff
 	}
 }
+void cpuid_test(void) {
+	uint32_t a, b, c, d;
+	for (uint32_t leaf = 0; leaf <= 0x16; leaf++) {
+		cpu_id(leaf, &a, &b, &c, &d);
+		printf("%-10lx => A: %-20luB: %-20luC: %-20luD: %lu\n", leaf, a, b, c, d);
+	}
+	for (uint32_t leaf = 0x80000000; leaf <= 0x80000009; leaf++) {
+		cpu_id(leaf, &a, &b, &c, &d);
+		printf("%-10lx => A: %-20luB: %-20luC: %-20luD: %lu\n", leaf, a, b, c, d);
+	}
+}
 
 int main(int argc, char** argv) {
 	//basic_trig();
 	//basic_exp();
+	cpuid_test();
 
 	return 0;
 }

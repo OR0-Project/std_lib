@@ -2,8 +2,8 @@
 // Created by marijn on 2/12/23.
 //
 
-#ifndef STD_LIB_TYPES_H
-#define STD_LIB_TYPES_H
+#ifndef STD_LIB_DEFS_H
+#define STD_LIB_DEFS_H
 
 
 #define int8_t char
@@ -22,5 +22,7 @@
 #define f64_t double
 #define f80_t long double
 
+#define nullptr (void*)0
 
-#endif //STD_LIB_TYPES_H
+
+#endif //STD_LIB_DEFS_H

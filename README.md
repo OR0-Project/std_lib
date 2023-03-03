@@ -22,4 +22,4 @@ Standard library using ASM/C for ASM/C/C++/Rust
 > * gnu toolchain
 
 > ## testing tool config
-> "test" is a config that will first run the aforementioned python build config after which it will compile and run the test program "/test/main.c"
+> "test" is a config that will first run the aforementioned build config after which it will compile and run the test program "/test/main.c"

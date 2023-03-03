@@ -6,7 +6,7 @@
 #define STD_LIB_MATH_H
 
 
-#include "types.h"
+#include "defs.h"
 
 // arithmetic.asm
 extern f64_t fabs(f64_t x);
