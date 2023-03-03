@@ -1,8 +1,5 @@
 [bits 64]
 section .text
-	extern pow
-	extern pow32
-
 	global sin
 	global sin32
 	global cos
@@ -15,8 +12,6 @@ section .text
 	global sec32
 	global cot
 	global cot32
-	global atan
-	global atan32
 
 
 sin:                                    ; double precision sin(x)

@@ -3,12 +3,14 @@
 //
 #include <stdio.h>
 
+#include "../inc/cpu.h"
 #include "../inc/math.h"
 
+
 void basic_trig(void) {
-	f64 x;
+	f64_t x;
 	for (uint8_t i = 0;; i++) {		// loop that roughly divides pi into 255 pieces
-		x = (double)i / 0x51; printf("%d:\n", i);
+		x = (f64_t)i / 0x51; printf("%d:\n", i);
 		printf("sin(%f)\t=> %.20f\n", x, sin(x));
 		printf("sin32(%f)\t=> %.20f\n", x, sin32(x));
 		printf("cos(%f)\t=> %.20f\n", x, cos(x));
@@ -25,9 +27,9 @@ void basic_trig(void) {
 	}
 }
 void basic_exp(void) {
-	f64 x;
+	f64_t x;
 	for (uint8_t i = 0;; i++) {		// loop that roughly divides pi into 255 pieces
-		x = (f64)i / 0xff; printf("%d:\n", i);
+		x = (f64_t)i / 0xff; printf("%d:\n", i);
 		printf("sqrt(%d)\t\t\t\t=> %.20f\n", i, sqrt(i));
 		printf("sqrt32(%d)\t\t\t\t=> %.20f\n", i, sqrt32(i));
 		printf("ln(%f)\t\t\t=> %.20f\n", x, ln(x));
@@ -40,7 +42,8 @@ void basic_exp(void) {
 }
 
 int main(int argc, char** argv) {
-	basic_trig();
-	basic_exp();
+	//basic_trig();
+	//basic_exp();
+
 	return 0;
 }

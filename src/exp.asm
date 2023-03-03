@@ -55,28 +55,28 @@ log10:
 
 exp:
 	sub rsp, 8                              ; free up some space on the stack
-    movsd [rsp], xmm0                       ; store x on the stack
-    fld qword [rsp]                         ; load the current approximation to the FPU register
-    fldl2e                                  ; load log2(e) into the FPU register
-    fmulp                                   ; multiply x by log2(e)
-    f2xm1                                   ; calculate 2 ^ (x * log2(e)) - 1
-    fld1                                    ; load 1.0 into the FPU register
-    faddp                                   ; add 1.0 to the result of the previous operation
-    fstp qword [rsp]                        ; store the result back on the stack
-    movsd xmm0, [rsp]                       ; load e^x into xmm0
-    add rsp, 8                              ; clean up space on the stack
+	movsd [rsp], xmm0                       ; store x on the stack
+	fld qword [rsp]                         ; load the current approximation to the FPU register
+	fldl2e                                  ; load log2(e) into the FPU register
+	fmulp                                   ; multiply x by log2(e)
+	f2xm1                                   ; calculate 2 ^ (x * log2(e)) - 1
+	fld1                                    ; load 1.0 into the FPU register
+	faddp                                   ; add 1.0 to the result of the previous operation
+	fstp qword [rsp]                        ; store the result back on the stack
+	movsd xmm0, [rsp]                       ; load e^x into xmm0
+	add rsp, 8                              ; clean up space on the stack
 	ret
 
 pow:
 	sub rsp, 8                              ; free up some space on the stack
 	call log2                               ; calculate log2(x)
-    mulsd xmm0, xmm1                        ; calculate y * log2(x)
-    movsd [rsp], xmm0                       ; store y * log2(x) on the stack
-    fld qword [rsp]                         ; load the current approximation to the FPU register
-    f2xm1                                   ; calculate 2 ^ (y * log2(x)) - 1
-    fld1                                    ; load 1.0 into the FPU register
-    faddp                                   ; add 1.0 to the result of the previous operation
-    fstp qword [rsp]                        ; store the result back on the stack
-    movsd xmm0, [rsp]                       ; load x^y into xmm0
-    add rsp, 8                              ; clean up space on the stack
+	mulsd xmm0, xmm1                        ; calculate y * log2(x)
+	movsd [rsp], xmm0                       ; store y * log2(x) on the stack
+	fld qword [rsp]                         ; load the current approximation to the FPU register
+	f2xm1                                   ; calculate 2 ^ (y * log2(x)) - 1
+	fld1                                    ; load 1.0 into the FPU register
+	faddp                                   ; add 1.0 to the result of the previous operation
+	fstp qword [rsp]                        ; store the result back on the stack
+	movsd xmm0, [rsp]                       ; load x^y into xmm0
+	add rsp, 8                              ; clean up space on the stack
 	ret

@@ -16,11 +16,9 @@ Standard library using ASM/C for ASM/C/C++/Rust
 
 ## Preferred Clion Config
 
-> ## python build config
-> "compile" is a config that will run "/compile.py"
-> #### python interpreter dependencies:
-> * subprocess, sys, os
+> ## build config
 > #### system dependencies
+> * make
 > * gnu toolchain
 
 > ## testing tool config

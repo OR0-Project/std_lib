@@ -18,9 +18,9 @@
 
 #define uint_t unsigned int
 
-#define f32 float
-#define f64 double
-#define f80 long double
+#define f32_t float
+#define f64_t double
+#define f80_t long double
 
 
 #endif //STD_LIB_TYPES_H
