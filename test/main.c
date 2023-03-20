@@ -42,7 +42,7 @@ void basic_exp(void) {
 	}
 }
 void cpuid_test(void) {
-	uint32_t a, b, c, d;
+	uint32_t a = 0, b = 0, c = 0, d = 0;
 	for (uint32_t leaf = 0; leaf <= 0x16; leaf++) {
 		cpu_id(leaf, &a, &b, &c, &d);
 		printf("%-20lx => A: %-20luB: %-20luC: %-20luD: %lu\n", leaf, a, b, c, d);
@@ -59,14 +59,14 @@ void cpuid_test(void) {
 	cpu_id(BRAND_STRING2, (uint32_t*)(brand_string + 32), (uint32_t*)(brand_string + 36), (uint32_t*)(brand_string + 40), (uint32_t*)(brand_string + 44));
 	printf("%-20s => %s\n", "BRAND_STRING", brand_string);
 	str vendor_id_string = calloc(13, 1);
-	cpu_id(VENDOR_ID, (uint32_t*)vendor_id_string, (uint32_t*)vendor_id_string, (uint32_t*)(vendor_id_string + 4), (uint32_t*)(vendor_id_string + 8));
+	cpu_id(VENDOR_ID, (uint32_t*)vendor_id_string, (uint32_t*)vendor_id_string, (uint32_t*)(vendor_id_string + 8), (uint32_t*)(vendor_id_string + 4));
 	printf("%-20s => %s\n", "VENDOR_ID", vendor_id_string);
 }
 
 int main(int argc, char** argv) {
 	//basic_trig();
 	//basic_exp();
-	//cpuid_test();
+	cpuid_test();
 
 	return 0;
 }
