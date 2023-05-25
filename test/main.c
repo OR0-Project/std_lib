@@ -31,23 +31,23 @@ void basic_exp(void) {
 	f64_t x;
 	for (uint8_t i = 0;; i++) {		// loop that roughly divides pi into 255 pieces
 		x = (f64_t)i / 0xff; printf("%d:\n", i);
-		printf("sqrt(%d)\t\t\t\t=> %.20f\n", i, sqrt(i));
-		printf("sqrt32(%d)\t\t\t\t=> %.20f\n", i, sqrt32(i));
+		printf("sqrt(%d)\t\t\t=> %.20f\n", i, sqrt(i));
+		printf("sqrt32(%d)\t\t\t=> %.20f\n", i, sqrt32(i));
 		printf("ln(%f)\t\t\t=> %.20f\n", x, ln(x));
 		printf("log2(%f)\t\t\t=> %.20f\n", x, log2(x));
 		printf("log10(%f)\t\t\t=> %.20f\n", x, log10(x));
 		printf("exp(%f)\t\t\t=> %.20f\n", x, exp(x));
-		printf("pow(%f, %f)\t=> %.20f\n", x, x, pow(x, x));
+		printf("pow(%f, %f)\t\t=> %.20f\n", x, x, pow(x, x));
 		if (i == 0xff) { break; }  // check at the end to include 0xff
 	}
 }
 void cpuid_test(void) {
 	uint32_t a = 0, b = 0, c = 0, d = 0;
-	for (uint32_t leaf = 0; leaf <= 0x16; leaf++) {
+	for (uint32_t leaf = 0; leaf < 0x17; leaf++) {
 		cpu_id(leaf, &a, &b, &c, &d);
 		printf("%-20lx => A: %-20luB: %-20luC: %-20luD: %lu\n", leaf, a, b, c, d);
 	}	printf("\n");
-	for (uint32_t leaf = 0x80000000; leaf <= 0x80000021; leaf++) {
+	for (uint32_t leaf = 0x80000000; leaf < 0x80000022; leaf++) {
 		cpu_id(leaf, &a, &b, &c, &d);
 		printf("%-20lx => A: %-20luB: %-20luC: %-20luD: %lu\n", leaf, a, b, c, d);
 	}	printf("\n");
@@ -66,7 +66,7 @@ void cpuid_test(void) {
 int main(int argc, char** argv) {
 	//basic_trig();
 	//basic_exp();
-	cpuid_test();
+	//cpuid_test();
 
 	return 0;
 }

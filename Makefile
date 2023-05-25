@@ -16,6 +16,9 @@ default: math cpu
 	$(LINK) --shared -o $(BIN)stdlib.so \
 		$(STATIC)math.o \
 		$(STATIC)cpu.o
+	$(LINK) --relocatable -o $(BIN)stdlib.o \
+    		$(STATIC)math.o \
+    		$(STATIC)cpu.o
 
 math:
 	$(ASM) $(ASM_FLAGS) -o $(INT)arithmetic.o $(SRC)arithmetic.asm
