@@ -1,9 +1,9 @@
 [bits 64]
 section .text
-	global cpu_id
+	global cpuid
 
 
-cpu_id:
+cpuid:
 	; the result pointer for edx is already in r8
 	mov r9, rcx                     ; move ecx result pointer into r9
 	mov r10, rdx                    ; move ebx result pointer into r10

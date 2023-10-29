@@ -12,13 +12,15 @@ STATIC = bin/static/
 INT = int/
 SRC = src/
 
-default: math cpu
-	$(LINK) --shared -o $(BIN)stdlib.so \
-		$(STATIC)math.o \
-		$(STATIC)cpu.o
+default: math cpu string
+	#$(LINK) --shared -o $(BIN)stdlib.so \
+	#	$(STATIC)math.o \
+	#	$(STATIC)cpu.o \
+	#	$(STATIC)string.o
 	$(LINK) --relocatable -o $(BIN)stdlib.o \
-    		$(STATIC)math.o \
-    		$(STATIC)cpu.o
+		$(STATIC)math.o \
+		$(STATIC)cpu.o \
+		$(STATIC)string.o
 
 math:
 	$(ASM) $(ASM_FLAGS) -o $(INT)arithmetic.o $(SRC)arithmetic.asm
@@ -31,3 +33,8 @@ cpu:
 	$(ASM) $(ASM_FLAGS) -o $(INT)cpuid.o $(SRC)cpuid.asm
 	$(LINK) --relocatable -o $(STATIC)cpu.o \
     		$(INT)cpuid.o
+
+string:
+	$(ASM) $(ASM_FLAGS) -o $(INT)string.o $(SRC)string.asm
+	$(LINK) --relocatable -o $(STATIC)string.o \
+    		$(INT)string.o

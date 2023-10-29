@@ -5,7 +5,6 @@
 #ifndef STD_LIB_DEFS_H
 #define STD_LIB_DEFS_H
 
-
 #define int8_t char
 #define int16_t short
 #define int32_t long
@@ -22,9 +21,7 @@
 #define f64_t double
 #define f80_t long double
 
-#define str char*
-
 #define nullptr (void*)0
-
+//#define NULL (void*)0
 
 #endif //STD_LIB_DEFS_H

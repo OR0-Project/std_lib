@@ -5,8 +5,8 @@
 #ifndef STD_LIB_SYS_H
 #define STD_LIB_SYS_H
 
-
 #include "defs.h"
+
 
 // TODO: refine these
 // https://wiki.osdev.org/CPUID
@@ -40,7 +40,7 @@ enum CPUID_LEAFS {
 	AMD_EASTER_EGG =								0x8FFFFFFF,	// TODO
 };
 
-extern void cpu_id(uint64_t leaf, uint32_t* eax, uint32_t* ebx, uint32_t* ecx, uint32_t* edx);
+extern void cpuid(uint64_t leaf, uint32_t* eax, uint32_t* ebx, uint32_t* ecx, uint32_t* edx);
 
 
 #endif //STD_LIB_SYS_H

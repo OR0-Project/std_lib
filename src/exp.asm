@@ -12,9 +12,6 @@ section .text
 sqrt:
 	sqrtsd xmm0, xmm0
 	ret
-sqrt32:
-	sqrtps xmm0, xmm0
-	ret
 
 ln:
 	sub rsp, 16                             ; free up some space on the stack
