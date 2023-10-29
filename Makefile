@@ -12,7 +12,7 @@ STATIC = bin/static/
 INT = int/
 SRC = src/
 
-default: math cpu string
+default: prep math cpu string
 	#$(LINK) --shared -o $(BIN)stdlib.so \
 	#	$(STATIC)math.o \
 	#	$(STATIC)cpu.o \
@@ -21,6 +21,15 @@ default: math cpu string
 		$(STATIC)math.o \
 		$(STATIC)cpu.o \
 		$(STATIC)string.o
+
+prep:
+	mkdir -p int
+	mkdir -p bin
+	mkdir -p bin/static
+
+clean:
+	rm -rf bin
+	rm -rf int
 
 math:
 	$(ASM) $(ASM_FLAGS) -o $(INT)arithmetic.o $(SRC)arithmetic.asm
