@@ -57,7 +57,7 @@ void cpuid_test(void) {
 	printf("%-20s => %s\n", "VENDOR_ID", vendor_id_string);
 }
 void string_test(void) {
-	char test[30] = "hello computer!\n";
+	char test[30] = "hello sssssssssssssssssss!\n";
 	printf("%lld\n", strlen("hello world!\n"));
 	printf("%lld\n", strlen(test));
 	strcpy(test, "hello world!\n");
@@ -66,8 +66,9 @@ void string_test(void) {
 
 	char text[] = "a b c d";
 	printf("%s\n", strtok(text, " "));
-	printf("%s\n", strtok(NULL, " "));
-	printf("%s\n", strtok(NULL, " "));
+	printf("%s\n", strtok(NULL, NULL));
+	printf("%s\n", strtok(NULL, NULL));
+	printf("%s\n", strtok(NULL, NULL));
 }
 
 int main(int argc, char** argv) {

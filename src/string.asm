@@ -6,7 +6,7 @@ section .text
 	global strtok
 
 
-strlen:		; TODO: inc before test/cmp to prevent flag clearing issues
+strlen:
 	mov rbx, rdi							; move string start into RBX
 	.loop:									; strlen loop
 	mov al, [rdi]
@@ -15,24 +15,22 @@ strlen:		; TODO: inc before test/cmp to prevent flag clearing issues
 	jne .loop								; jump if the char at RDI is zero
 	mov rax, rdi							; move RDI into RAX
 	sub rax, rbx							; subtract RBX from RAX to yield strlen
+	dec rax
 	ret
 
 strcpy:
 	mov rax, rdi
 	.loop:									; strlen loop
 	mov bl, byte [rsi]						; move char at RSI to bl
-	test bl, bl								; test the char at RSI
 	mov byte [rdi], bl						; move char at RSI to RDI
 	inc rsi									; increment RSI
 	inc rdi									; increment RDI
+	test bl, bl								; test the char at RSI
 	jnz .loop								; jump if the char at RDI is zero
 	ret
 
 strcat:
-	.loop:									; strlen loop
-	cmp byte[rdi], 0						; test the char at RDI
-	inc rdi									; increment RDI
-	jne .loop								; jump if the char at RDI is not zero
+	call strlen
 	call strcpy								; call strcpy now that the offset has been determined
 	ret
 
@@ -54,18 +52,23 @@ strtok:
 	mov cl, byte[rsi]
 	cmp byte[rdi], cl						; compare char with delim
 	je .delim_hit							; jump to delim_hit if char is equal to delim
-	test cl, cl								; test delim at RSI
 	inc rsi									; increment RSI
+	test cl, cl								; test delim at RSI
 	jnz .loop								; jump to loop if delim is non zero
 	mov rsi, rbx							; reset RSI to start of delims
 	inc rdi									; increment RDI
+	cmp byte[rdi], 0
 	jnz .loop								; jump if the char at RDI is zero
+	jz .clear_str
 	.delim_hit:
-	inc rdi
 	mov byte[rdi], 0						; insert null terminator on hit
 	inc rdi
-	mov [rel strtok_str], rdi					; set prev_str
+	mov [rel strtok_str], rdi				; set prev_str
 	.end:
+	ret
+
+	.clear_str:
+	mov qword[rel strtok_str], 0
 	ret
 
 	.load_str:
