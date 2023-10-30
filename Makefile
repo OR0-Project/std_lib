@@ -1,3 +1,5 @@
+include Makefile.config
+
 C = gcc
 ASM = nasm
 CPP = g++
@@ -5,14 +7,14 @@ LINK = ld
 
 C_FLAGS = -Wall -std=c99
 CPP_FLAGS = -Wall -std=c++23
-ASM_FLAGS = -Wall -f elf64
+ASM_FLAGS = -Wall -f elf64 $(ASM_DEFINES)
 
 BIN = bin/
 STATIC = bin/static/
 INT = int/
 SRC = src/
 
-default: prep math cpu string
+default: prep math cpu string vector
 	#$(LINK) --shared -o $(BIN)stdlib.so \
 	#	$(STATIC)math.o \
 	#	$(STATIC)cpu.o \
@@ -20,7 +22,8 @@ default: prep math cpu string
 	$(LINK) --relocatable -o $(BIN)stdlib.o \
 		$(STATIC)math.o \
 		$(STATIC)cpu.o \
-		$(STATIC)string.o
+		$(STATIC)string.o \
+		$(STATIC)vector.o
 
 prep:
 	mkdir -p int
@@ -47,3 +50,8 @@ string:
 	$(ASM) $(ASM_FLAGS) -o $(INT)string.o $(SRC)string.asm
 	$(LINK) --relocatable -o $(STATIC)string.o \
     		$(INT)string.o
+
+vector:
+	$(ASM) $(ASM_FLAGS) -o $(INT)vector.o $(SRC)vector.asm
+	$(LINK) --relocatable -o $(STATIC)vector.o \
+    		$(INT)vector.o

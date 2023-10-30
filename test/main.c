@@ -7,6 +7,7 @@
 #include "cpu.h"
 #include "math.h"
 #include "string.h"
+#include "vector.h"
 
 
 void basic_trig(void) {
@@ -75,7 +76,8 @@ int main(int argc, char** argv) {
 	//basic_trig();
 	//basic_exp();
 	//cpuid_test();
-	string_test();
+	//string_test();
+	test();
 
 	return 0;
 }
