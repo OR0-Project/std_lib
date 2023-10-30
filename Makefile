@@ -5,8 +5,8 @@ ASM = nasm
 CPP = g++
 LINK = ld
 
-C_FLAGS = -Wall -std=c99
-CPP_FLAGS = -Wall -std=c++23
+C_FLAGS = -Wall -std=c99 $(C_DEFINES)
+CPP_FLAGS = -Wall -std=c++23 $(CPP_DEFINES)
 ASM_FLAGS = -Wall -f elf64 $(ASM_DEFINES)
 
 BIN = bin/

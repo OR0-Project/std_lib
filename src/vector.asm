@@ -4,7 +4,7 @@ section .text
 
 
 test:
-%ifdef __SSE__
+%ifdef __AVX2__
 	jmp $
 	ret
 %else
